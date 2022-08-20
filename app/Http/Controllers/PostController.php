@@ -10,9 +10,8 @@ class PostController extends Controller
 {
     protected $post = '';
 
-    public function __construct(Post $post)
+    public function __construct()
     {
-        $this->post = $post;
     }
     /**
      * Display a listing of the resource.
@@ -32,7 +31,11 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('post.create');
+        return view('post.create', [
+            'label'  => 'Create',
+            'route'  => route('post.store'),
+            'method' => 'POST'
+        ]);
     }
 
     /**
@@ -41,10 +44,10 @@ class PostController extends Controller
      * @param  \App\Http\Requests\StorePostRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePostRequest $request)
+    public function store(StorePostRequest $request, Post $post)
     {
         $requestData = $request->validated();
-        if ($this->post->add($requestData)) {
+        if ($post->add($requestData)) {
             return redirect()->route('post.index');
         }
     }
@@ -66,9 +69,14 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit(Post $post)
     {
-        //
+        return view('post.create', [
+            'post'   => $post,
+            'label'  => 'Edit',
+            'route'  => route('post.update', $post->slug),
+            'method' => 'PUT'
+        ]);
     }
 
     /**
@@ -78,9 +86,12 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePostRequest $request)
+    public function update(UpdatePostRequest $request, Post $post)
     {
-        //
+        $requestData = $request->validated();
+        if ($post->update($requestData)) {
+            return redirect()->route('post.show', $post->slug);
+        }
     }
 
     /**
@@ -89,8 +100,10 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function destroy()
+    public function destroy(Post $post)
     {
-        //
+        if ($post->delete()) {
+            return redirect()->route('post.index');
+        }
     }
 }
