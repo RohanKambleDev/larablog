@@ -31,11 +31,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('post.create', [
-            'label'  => 'Create',
-            'route'  => route('post.store'),
-            'method' => 'POST'
-        ]);
+        return view('post.create');
     }
 
     /**
@@ -48,7 +44,7 @@ class PostController extends Controller
     {
         $requestData = $request->validated();
         if ($post->add($requestData)) {
-            return redirect()->route('post.index');
+            return redirect()->route('post.index')->with('success', 'Post added successfully');
         }
     }
 
@@ -71,12 +67,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('post.create', [
-            'post'   => $post,
-            'label'  => 'Edit',
-            'route'  => route('post.update', $post->slug),
-            'method' => 'PUT'
-        ]);
+        return view('post.edit', ['post' => $post])->with('success', 'Post updated successfully');
     }
 
     /**
