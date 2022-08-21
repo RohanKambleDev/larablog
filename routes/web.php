@@ -18,8 +18,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Route::get('/', function () {
+//     Route::get('posts', [PostController::class, 'index']);
+// });
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::resource('post', PostController::class);
+Route::middleware(['auth'])->resource('post', PostController::class);
