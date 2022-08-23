@@ -27,3 +27,16 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware(['auth'])->resource('post', PostController::class);
+
+Route::middleware(['auth'])
+    ->controller(PostController::class)
+    ->group(function () {
+        Route::get('post', 'index')->name('post.index');
+        Route::post('post', 'store')->name('post.store');
+        Route::middleware('can:edit articles')->get('post/create', 'create')->name('post.create');
+        // Route::get('post/create', 'create')->name('post.create');
+        Route::get('post/{post}', 'show')->name('post.show');
+        Route::put('post/{post}', 'update')->name('post.update');
+        Route::delete('post/{post}', 'destroy')->name('post.destroy');
+        Route::get('post/{post}/edit', 'edit')->name('post.edit');
+    });

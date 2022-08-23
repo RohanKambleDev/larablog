@@ -8,13 +8,18 @@
                         <h1 class="text-capitalize">{{ $post->title }}</h1>
                     </div>
                     <div class="col-md-6" style="text-align: right">
-                        <form method="POST" name="deletePost" action="{{ route('post.destroy', $post->slug) }}"
-                            style="text-align: right">
+                        @can(['delete articles', 'edit articles'])
+                            <form method="POST" name="deletePost" action="{{ route('post.destroy', $post->slug) }}"
+                                style="text-align: right">
+                                <a class="btn btn-primary" href="{{ route('post.edit', $post->slug) }}" role="button">Edit</a>
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        @elsecan(['edit articles'])
                             <a class="btn btn-primary" href="{{ route('post.edit', $post->slug) }}" role="button">Edit</a>
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
+                            </form>
+                        @endcan
                     </div>
                 </div>
                 <div class="card mb-3 p-4">
