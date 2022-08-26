@@ -28,7 +28,7 @@ class StorePostRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'         => 'required|email', //alpha - The field under validation must be entirely alphabetic characters.
+            'title'         => 'required|regex:/^[a-zA-Z0-9\s]+$/', //alpha - The field under validation must be entirely alphabetic characters.
             'description'   => 'required|string',
             'slug'          => 'required|string'
         ];

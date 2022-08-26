@@ -25,8 +25,8 @@
                 <div class="card mb-3 p-4">
                     <div class="row g-0">
                         <div class="col-md-4">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Laravel.svg/1200px-Laravel.svg.png"
-                                class="img-fluid rounded-start" width="150" alt="">
+                            <img src="{{ asset('storage/' . $post->image) }}" class="img-fluid rounded-start" width="250"
+                                alt="">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">

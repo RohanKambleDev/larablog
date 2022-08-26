@@ -43,6 +43,10 @@ class PostController extends Controller
     public function store(StorePostRequest $request, Post $post)
     {
         $requestData = $request->validated();
+        if ($request->hasFile('postImage')) {
+            $filePath = $request->postImage->store('post', 'public');
+            $requestData['image'] = $filePath;
+        }
         if ($post->add($requestData)) {
             return redirect()->route('post.index')->with('success', 'Post added successfully');
         }
