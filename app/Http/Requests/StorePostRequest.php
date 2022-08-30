@@ -15,7 +15,7 @@ class StorePostRequest extends FormRequest
     public function authorize(User $user)
     {
         return true;
-        // if ($user->can('edit articles')) {
+        // if ($user->can('edit_article')) {
         //     return true;
         // }
     }

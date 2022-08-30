@@ -25,12 +25,10 @@
                     <div class="col-md-6">
                         <h1>Posts</h1>
                     </div>
-                    @can('edit articles')
-                        <div class="col-md-6" style="text-align: right;">
-                            <a class="btn btn-primary text-right" href="{{ route('post.create') }}" role="button">Add new
-                                post</a>
-                        </div>
-                    @endcan
+                    <div class="col-md-6" style="text-align: right;">
+                        <a class="btn btn-primary text-right" href="{{ route('post.create') }}" role="button">Add new
+                            post</a>
+                    </div>
                 </div>
                 <ol class="list-group list-group-numbered">
                     @foreach ($posts as $post)

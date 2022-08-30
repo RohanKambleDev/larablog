@@ -16,12 +16,15 @@ class RolesAndPermissionsSeeder extends Seeder
      */
     public function run()
     {
+        // Reset cached roles and permissions
+        app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+
         $permissions = [];
-        $permissions['edit_articles'] = Permission::create(['name' => 'edit articles']);
-        $permissions['delete_articles'] = Permission::create(['name' => 'delete articles']);
-        $permissions['view_articles'] = Permission::create(['name' => 'view articles']);
-        $permissions['edit_users'] = Permission::create(['name' => 'edit users']);
-        $permissions['delete_users'] = Permission::create(['name' => 'delete users']);
+        $permissions['edit_articles'] = Permission::create(['name' => 'edit_article']);
+        $permissions['delete_articles'] = Permission::create(['name' => 'delete_article']);
+        $permissions['view_articles'] = Permission::create(['name' => 'view_article']);
+        $permissions['edit_users'] = Permission::create(['name' => 'edit_user']);
+        $permissions['delete_users'] = Permission::create(['name' => 'delete_user']);
 
         $role = Role::create(['name' => 'admin']);
         $role->syncPermissions($permissions);

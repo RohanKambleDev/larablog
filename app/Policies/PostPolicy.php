@@ -5,23 +5,10 @@ namespace App\Policies;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Illuminate\Support\Facades\Auth;
 
 class PostPolicy
 {
     use HandlesAuthorization;
-
-    /**
-     * Perform pre-authorization checks.
-     *
-     * @param  \App\Models\User  $user
-     * @param  string  $ability
-     * @return void|bool
-     */
-    // public function before(User $user, $ability)
-    // {
-    //     dd('this is before');
-    // }
 
     /**
      * Determine whether the user can view any models.
@@ -43,14 +30,7 @@ class PostPolicy
      */
     public function view(User $user, Post $post)
     {
-        // dd('vide called');
-    }
-
-    public function edit(User $user, Post $post)
-    {
-        if ($user->can('edit articles') && $user->id == $post->created_by) {
-            return true;
-        }
+        //
     }
 
     /**
@@ -61,9 +41,7 @@ class PostPolicy
      */
     public function create(User $user)
     {
-        if ($user->can('edit articles')) {
-            return true;
-        }
+        return true;
     }
 
     /**
@@ -75,9 +53,7 @@ class PostPolicy
      */
     public function update(User $user, Post $post)
     {
-        if ($user->can('edit articles') && $user->id == $post->created_by) {
-            return true;
-        }
+        //
     }
 
     /**

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 
@@ -27,6 +28,9 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // Route::middleware(['auth'])->resource('post', PostController::class);
+Route::middleware(['auth'])
+    ->prefix('admin')
+    ->resource('user', UserController::class);
 
 Route::middleware(['auth'])
     ->controller(PostController::class)

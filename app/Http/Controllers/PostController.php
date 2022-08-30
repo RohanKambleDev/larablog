@@ -32,7 +32,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        $this->authorize('create');
+        $this->authorize('create', Post::class);
         return view('post.create');
     }
 
