@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -31,6 +32,7 @@ class PostController extends Controller
      */
     public function create()
     {
+        $this->authorize('create');
         return view('post.create');
     }
 
@@ -42,11 +44,13 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request, Post $post)
     {
+        $this->authorize('create');
         $requestData = $request->validated();
         if ($request->hasFile('postImage')) {
             $filePath = $request->postImage->store('post', 'public');
             $requestData['image'] = $filePath;
         }
+        $requestData['created_by'] = Auth::user()->id;
         if ($post->add($requestData)) {
             return redirect()->route('post.index')->with('success', 'Post added successfully');
         }
@@ -71,6 +75,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        $this->authorize('edit', $post);
         return view('post.edit', ['post' => $post])->with('success', 'Post updated successfully');
     }
 
@@ -83,6 +88,7 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
+        $this->authorize('update', $post);
         $requestData = $request->validated();
         if ($post->update($requestData)) {
             return redirect()->route('post.show', $post->slug);

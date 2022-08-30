@@ -33,8 +33,8 @@ Route::middleware(['auth'])
     ->group(function () {
         Route::get('post', 'index')->name('post.index');
         Route::post('post', 'store')->name('post.store');
-        Route::middleware('can:edit articles')->get('post/create', 'create')->name('post.create');
-        // Route::get('post/create', 'create')->name('post.create');
+        // Route::middleware('can:edit articles')->get('post/create', 'create')->name('post.create');
+        Route::get('post/create', 'create')->name('post.create');
         Route::get('post/{post:slug}', 'show')->name('post.show');
         Route::put('post/{post:slug}', 'update')->name('post.update');
         Route::delete('post/{post}', 'destroy')->name('post.destroy');
