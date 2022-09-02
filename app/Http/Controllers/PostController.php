@@ -21,6 +21,8 @@ class PostController extends Controller
      */
     public function index()
     {
+        $posts = Post::all();
+        // dd($posts->titleToUpper());
         $posts = Post::all()->toArray();
         return view('post.index', ['posts' => $posts]);
     }

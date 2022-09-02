@@ -2,7 +2,11 @@
 
 namespace App\Providers;
 
+use App\Services\TestClass;
+use Illuminate\Support\Str;
+use App\Services\RegisterMacros;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Eloquent\Collection;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +17,18 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        /**
+         * macros example
+         */
+        // Collection::macro('titleToUpper', function () {
+        //     return $this->map(function ($value) {
+        //         if ($value->title) {
+        //             $value->title =  Str::upper($value->title);
+        //         }
+        //         return $value;
+        //     });
+        // });
+        Collection::mixin(new RegisterMacros);
     }
 
     /**
