@@ -34,7 +34,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        $this->authorize('create', Post::class);
+        // $this->authorize('create', Post::class);
         return view('post.create');
     }
 
@@ -46,7 +46,7 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request, Post $post)
     {
-        $this->authorize('create');
+        $this->authorize('create', Post::class);
         $requestData = $request->validated();
         if ($request->hasFile('postImage')) {
             $filePath = $request->postImage->store('post', 'public');

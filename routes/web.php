@@ -29,16 +29,16 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // Route::middleware(['auth'])->resource('post', PostController::class);
 Route::middleware(['auth'])
-    ->prefix('admin')
-    ->resource('user', UserController::class);
+    // ->prefix('admin')
+    ->resource('admin/user', UserController::class);
 
 Route::middleware(['auth'])
     ->controller(PostController::class)
     ->group(function () {
         Route::get('post', 'index')->name('post.index');
         Route::post('post', 'store')->name('post.store');
-        // Route::middleware('can:edit articles')->get('post/create', 'create')->name('post.create');
-        Route::get('post/create', 'create')->name('post.create');
+        Route::middleware('can:edit_article')->get('post/create', 'create')->name('post.create');
+        // Route::get('post/create', 'create')->name('post.create');
         Route::get('post/{post:slug}', 'show')->name('post.show');
         Route::put('post/{post:slug}', 'update')->name('post.update');
         Route::delete('post/{post}', 'destroy')->name('post.destroy');

@@ -41,7 +41,9 @@ class PostPolicy
      */
     public function create(User $user)
     {
-        return true;
+        if ($user->can('edit_article')) {
+            return true;
+        }
     }
 
     /**
