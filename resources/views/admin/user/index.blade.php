@@ -11,10 +11,6 @@
                     <div class="col-md-6">
                         <h1>Users</h1>
                     </div>
-                    <div class="col-md-6" style="text-align: right;">
-                        <a class="btn btn-primary text-right" href="{{ route('user.create') }}" role="button">Add new
-                            user</a>
-                    </div>
                 </div>
                 <ol class="list-group list-group-numbered">
                     @foreach ($users as $user)
