@@ -44,6 +44,13 @@ class Post extends Model
         'id'
     ];
 
+    public function comment()
+    {
+        // hasOne, hasMany, belongsTo, belongsToMany
+        return $this->hasMany(Comment::class)->get();
+        // $this->hasMany(Comment::class, 'post_id', 'id');
+    }
+
     /**
      *
      */

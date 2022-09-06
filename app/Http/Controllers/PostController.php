@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
+use App\Models\Comment;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
-use App\Models\Post;
-use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -21,9 +23,26 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
-        // dd($posts->titleToUpper());
+
+        // $comments = Comment::all();
+        // foreach ($comments as $comment) {
+        //     // if ($comment->post_id == 1) {
+        //     dd($comment, $comment->post());
+        //     // }
+        // }
+
+        // exit;
+        // $posts = Cache::remember('post.all', now()->addSeconds(60), function () {
+        //     // $posts = Post::all();
+        //     return Post::all()->toArray();
+        // });
+        // $posts = Post::all();
+        // foreach ($posts as $post) {
+        //     dd($post->comment());
+        // }
         $posts = Post::all()->toArray();
+        // cache()->forget('post.all');
+        // dd($posts->titleToUpper());
         return view('post.index', ['posts' => $posts]);
     }
 

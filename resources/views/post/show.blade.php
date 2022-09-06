@@ -40,6 +40,14 @@
                         </div>
                     </div>
                 </div>
+                <h3> Comments </h3>
+                <div class="card mb-3 p-4">
+                    @foreach ($post->comment() as $comment)
+                        <ul>
+                            <li>{{ $comment->data }}</li>
+                        </ul>
+                    @endforeach
+                </div>
             </div>
         </div>
     </div>
