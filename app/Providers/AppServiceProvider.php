@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Services\TestClass;
 use Illuminate\Support\Str;
 use App\Services\RegisterMacros;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Collection;
 

@@ -39,6 +39,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        dd($user->getRoleNames());
         return view('admin.user.show', ['user' => $user]);
     }
 
@@ -63,7 +64,13 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        dd($user);
+        // dd($request->all(), $user);
+        $role = $request->role;
+        $roles = Role::whereIn('name', [$role])->pluck('name')->toArray();
+        // $user->assignRole($roles);
+        $user->syncRoles($roles);
+
+        return redirect()->route('user.show', $user->id);
     }
 
     /**

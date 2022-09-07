@@ -40,10 +40,10 @@
                         </div>
                         <div class="mb-2">
                             <label for="slug" class="form-label">Role</label>
-                            <select class="form-select" aria-label="Role">
+                            <select class="form-select" aria-label="Role" name="role">
                                 <option selected>Select a Role</option>
                                 @foreach ($roles as $role)
-                                    <option value="{{ $role->id }}">{{ Str::ucfirst($role->name) }}</option>
+                                    <option value="{{ $role->name }}">{{ Str::ucfirst($role->name) }}</option>
                                 @endforeach
                             </select>
                         </div>
