@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
+use App\Services\Post as PostService;
 
 class PostController extends Controller
 {
@@ -21,9 +22,10 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(PostService $postService)
     {
 
+        dd(app());
         // $comments = Comment::all();
         // foreach ($comments as $comment) {
         //     // if ($comment->post_id == 1) {
@@ -63,17 +65,30 @@ class PostController extends Controller
      * @param  \App\Http\Requests\StorePostRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePostRequest $request, Post $post)
+    public function store(StorePostRequest $request, Post $post, PostService $postService)
     {
+        // dd(app());
         $this->authorize('create', Post::class);
-        $requestData = $request->validated();
-        if ($request->hasFile('postImage')) {
-            $filePath = $request->postImage->store('post', 'public');
-            $requestData['image'] = $filePath;
-        }
-        $requestData['created_by'] = Auth::user()->id;
-        if ($post->add($requestData)) {
-            return redirect()->route('post.index')->with('success', 'Post added successfully');
+        // $requestData = $request->validated();
+        // if ($request->hasFile('postImage')) {
+        //     $filePath = $request->postImage->store('post', 'public');
+        //     $requestData['image'] = $filePath;
+        // }
+        // $requestData['created_by'] = Auth::user()->id;
+        // if ($post->add($requestData)) {
+        //     return redirect()->route('post.index')->with('success', 'Post added successfully');
+        // }
+
+        // $requestData = $request->validated();
+
+        // $postService = new PostService();
+        $status = $postService->save($request, $post);
+
+        if ($status) {
+            // return redirect()->route('post.index')->with('success', 'Post added successfully');
+            return to_route('post.index')->with('success', 'Post added successfully');
+        } else {
+            return redirect()->route('post.index')->with('success', 'Failed to add Post, Please try again later');
         }
     }
 

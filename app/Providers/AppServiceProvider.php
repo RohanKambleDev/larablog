@@ -8,6 +8,7 @@ use App\Services\RegisterMacros;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Collection;
+use App\Services\Post;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -30,6 +31,10 @@ class AppServiceProvider extends ServiceProvider
         //     });
         // });
         Collection::mixin(new RegisterMacros);
+
+        app()->bind(Post::class, function ($app) {
+            return new Post('Rohan');
+        });
     }
 
     /**
