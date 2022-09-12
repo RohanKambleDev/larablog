@@ -33,7 +33,7 @@ class AppServiceProvider extends ServiceProvider
         Collection::mixin(new RegisterMacros);
 
         app()->bind(Post::class, function ($app) {
-            return new Post('Rohan');
+            return new Post();
         });
     }
 
@@ -44,6 +44,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        view()->composer('layouts.app', function ($view) {
+            $view->with('name', 'Rohan');
+        });
     }
 }

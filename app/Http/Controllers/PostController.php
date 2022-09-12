@@ -25,7 +25,7 @@ class PostController extends Controller
     public function index(PostService $postService)
     {
 
-        dd(app());
+        // dd(app());
         // $comments = Comment::all();
         // foreach ($comments as $comment) {
         //     // if ($comment->post_id == 1) {

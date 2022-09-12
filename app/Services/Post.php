@@ -2,16 +2,17 @@
 
 namespace App\Services;
 
+use App\Services\Interfaces\Service;
 use Illuminate\Support\Facades\Auth;
 
-class Post
+class Post implements Service
 {
     public $name = '';
 
-    public function __construct($name)
-    {
-        $this->name = $name;
-    }
+    // public function __construct($name)
+    // {
+    //     $this->name = $name;
+    // }
 
     public function save($request, $post)
     {
@@ -27,5 +28,10 @@ class Post
         }
         $requestData['created_by'] = Auth::user()->id;
         return $post->add($requestData);
+    }
+
+    public function getServiceName()
+    {
+        return 'Service Name is Post';
     }
 }
